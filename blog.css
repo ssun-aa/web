@@ -1,0 +1,706 @@
+/* 초기화 */
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: ‘맑은 고딕’, ‘Malgun Gothic’, Gothic, sans-serif;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    li { list-style: none; }
+
+  /* 기본 클래스 */
+
+    .pull-left { float: left; }
+    .pull-right { float: right; }
+
+/* 페이지 */
+
+    body {
+      width: 960px;
+      margin: 0 auto;
+      background: #E6E6E6;
+    }
+    audio {/*오디오 설정*/
+      width: 250px;
+      height: 25px;
+      margin: 10px 40px;
+    }
+    #page-wrapper {
+      position: relative;
+      background: white;
+      margin: 40px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    }
+
+/* 헤더 */
+
+    #main-header { margin-top: 10px;}
+    hgroup {
+      height: 130px;
+    }
+    .master-title {
+      font-size: 30px;
+      color: #181818;
+      padding: 20px 20px 5px 20px;
+    }
+    .master-title a {
+      color: #5B859E;
+    }
+    .master-description {
+      font-size: 15px;
+      font-weight: 500;
+      color: #5B859E;
+      padding: 0px 20px 20px 20px;
+    }
+    .clock {/*시계 부분*/
+      font-weight: lighter;
+      float: right;
+      font-size: 15px;
+    }
+
+/* 내비게이션 */
+
+    #main-navigation {
+      border-top: 1px solid #C8C8C8;
+      border-bottom: 1px solid #C8C8C8;
+      margin-bottom: 20px;
+      height: 40px;
+    }
+    .outer-menu-item,/*outer 메뉴(국외 드라마, 국외 영화, 국내 드라마)*/
+    .outer-menu-item > a{/*outer 메뉴 중 home*/
+      width: 150px;
+      float: left;
+      position: relative;
+      color: #708EA0;
+    }
+    .outer-menu-item:hover,/*outer 메뉴(국외 드라마, 국외 영화, 국내 드라마) hover시 */
+    .outer-menu-item > a :hover {/*outer 메뉴 중 home hover 시 변화*/
+      background: #D1DFE4;
+      color: white;
+    }
+    .menu-title {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      padding: 5px 20px;
+    }
+    .inner-menu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 5px 5px 6px #D6D6D6;
+      z-index: 1000;
+      text-align: center;
+      }
+    .inner-menu-item > a {
+      display: block;
+      border-bottom: 1px solid #E6E6E6;/*inner menu 항목들 간의 경계선*/
+      padding: 5px 10px;
+      color: black;
+    }
+    .inner-menu-item > a:hover {
+      background: #D1DFE4;
+      color: white;
+    }
+    .outer-menu-item:hover .inner-menu{
+      display: block;
+    }
+
+    .search-bar {
+      height: 26px;
+      padding: 7px;
+    }
+    .input-search {
+      display: block;
+      float: left;
+      background-color: #FFFFFF;
+      border: 1px solid #CCCCCC;
+      border-radius: 10px 0 0 10px;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+      width: 120px;
+      height: 24px;
+      padding: 0 0 0 10px;
+      font-size: 12px;
+      color: #555555;
+    }
+    .input-search:focus {
+      border-color: #CAE3EC;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .input-search-submit {
+      display: block;
+      float: left;
+      width: 50px;
+      height: 26px;
+      border-radius: 0 10px 10px 0;
+      border: 1px solid #CCCCCC;
+      margin-left: -1px;
+      vertical-align: top;
+      display: inline-block;
+      cursor: pointer; /*커서 모양 포인터로*/
+    }
+    .backgroundHighlight {
+      background: #D1DFE4;
+    }
+    .backgroundOriginal {
+      background: white;
+    }
+/* body 태그의 너비: 960픽셀 */
+/* #page-wrapper 태그의 padding 속성으로 내용물 너비는 920픽셀 */
+    #content { overflow: hidden; }
+    #main-section {
+      float: left;
+      width: 610px;
+    }
+    #main-aside {
+      float: right;
+      width: 200px;
+    }
+    #main-aside h3 {
+      color: #5B859E;
+    }
+
+
+/* 좌측 내용 */
+    /*목록*/
+
+    #main-section > h5 {/*""목록 열기"" 글자*/
+      display: block;
+      float: right;
+      padding-right: 40px;
+      font-size: 13px;
+      color: #6C6C6C;
+      cursor: pointer;
+    }
+    #main-section > h5:hover {
+      text-decoration: underline;
+    }
+    #main-section .list {
+      padding-top: 20px;
+    }
+    #main-section table {/*목록 table*/
+      width: 540px;
+      border-collapse:collapse;/*첫번째 tr 밑에 border 속성을 적용하기 위한*/
+      margin: 10px 30px;
+    }
+    #main-section table td {/*목록 table 모든 항목*/
+      font-size: 12px;
+    }
+    #main-section table .left {
+      width: 400px;
+    }
+    #main-section table .center {
+      text-align: center;
+      color: #6C6C6C;
+    }
+    #main-section table .right {
+      text-align: right;
+      color: #6C6C6C;
+    }
+    #main-section table thead tr {/*목록 table 첫번 째 행*/
+
+      border-bottom: 1px solid #C8C8C8;
+      line-height:30px;/*padding-bottom 값이 적용이 안되어서 선택한 방법*/
+    }
+    #main-section table thead tr td {
+      color: #6C6C6C;
+      font-size: 11px;
+    }
+    #main-section table tbody tr {/*목록 table 첫번 째 행 제외 전부*/
+      border-bottom: 1px solid #E6E6E6;
+      line-height:30px;
+    }
+    #main-section table tbody tr .left:hover{/*목록 table 첫번 째 행 제외 전부*/
+      text-decoration: underline;
+    }
+    .off-screen {
+	     display: none;
+    }
+    #paging a {
+	    color: #6C6C6C;
+    }
+    #paging a:hover{/*페이징 숫자들*/
+      text-decoration: underline;
+    }
+
+    /*프로필 양식*/
+    #profile-form {/*프로필 양식; 기본정보, 프로필 이미지 업로드 */
+      display: inline-block;
+      display: none;
+      padding: 0px 60px;
+      margin-bottom: 50px;
+    }
+    #profile-form table {/*프로필 기본 정보 table*/
+      width: 500px;
+      border: 2px solid #E6E6E6;
+      border-radius: 5px;
+      margin: 5px;
+      margin-bottom: 50px;
+    }
+    #profile-form th{
+      border: 1px solid #E6E6E6;
+      background: #F4F4F4;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    #profile-form td {
+      border: 1px solid #E6E6E6;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 12px;
+    }
+    #profile-form td input {/*프로필 기본 정보 중 닉네임 입력 칸*/
+      width: 150px;
+      border: none;
+      text-align: center;
+      font-style: italic;
+      font-size: 12px;
+    }
+    #profile-input {/*프로필 양식 중 이미지 업로드 칸*/
+      position: relative;
+      width: 500px;
+      height: 400px;
+      margin: 5px auto 0 auto;
+      background: #F4F4F4;
+    }
+    .guide{/*이미지 업로드 칸의 drag & drop 안내문구*/
+      position: absolute;
+      top:50%;
+      left:50%;
+      font-size: 25px;
+      transform: translate(-50%,-50%);
+    }
+    .fileName {/*업로드 된 이미지 이름 칸*/
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .upload-button {/*이미지 업로드 버튼 영역*/
+      display: inline-block;
+      width: 380px;
+      text-align: center;
+    }
+    .upload-button label, #change-image{/*이미지 업로드과 연결된 label, 변경 버튼*/
+        display: inline-block;
+        background: #F4F4F4;
+        font-size: 25px;
+        font-weight: 500;
+        white-space: nowrap;/*공백 줄바꿈하지 않음*/
+        cursor: pointer;
+        overflow: hidden;
+        padding: 5px 90px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+    }
+     #change-image {/*변경 버튼*/
+      padding: 5px 30px;
+    }
+    .upload-button label:hover, #change-image:hover{/*업로드 버튼, 변경 버튼 hover*/
+      background: #d9d9d9;
+    }
+    label svg {/*업로드 버튼 이미지*/
+        width: 1em;
+        height: 1em;
+        vertical-align: middle;
+        fill: currentColor;
+        margin-top: -0.25em;
+        margin-right: 0.25em;
+    }
+
+
+    /*글쓰기 양식*/
+    #smartEditorText {/*글쓰기 양식*/
+      display: none;
+      width: 640px;
+      margin-top: 20px;
+      font-size: 0;
+    }
+    #smartEditorText table h5 {/*글쓰기 양식 표 중 "제목"*, "내용" 글씨 css*/
+      font-size: 13px;
+      margin: 0 10px 0 20px;
+    }
+    #smartEditorText table input,/*글쓰기 양식 중 제목 입력 칸, 저장버튼 취소버튼*/
+    #smartEditorText table textarea {/*글쓰기 양식 중 내용 입력 칸*/
+      margin: 5px 5px 5px 0;
+    }
+    #smartEditorText table #save:hover,
+    #smartEditorText table #cancle:hover {/*저장버튼,취소버튼 hover*/
+      background: #d9d9d9;
+      cursor: pointer;
+    }
+
+    article {
+      padding: 0 10px 20px 10px;
+      margin-top: 50px;
+      margin-bottom: 5px;
+      border-top: 1px solid #E6E6E6;
+      border-left: 1px solid #E6E6E6;
+      border-radius: 5px;
+      box-shadow: 7px 7px 6px rgba(100, 100, 100, 0.3);
+      padding-bottom: 10px;
+
+    }
+    .article-header { padding: 20px 0; }
+    .article-title {
+      font-size: 25px;
+      font-weight: 500;
+      padding-bottom: 10px;
+    }
+    .article-date { font-size: 13px; }
+    .article-body { font-size: 14px; }
+    .article-body p {
+      background: white;
+      line-height: 25px;
+    }
+
+    .likes-box, .share-box, .comments-box {/*like, 공유, 댓글 수 버튼 */
+      background-color: white;
+      display: inline-block;
+      border: 2px solid #E6E6E6;
+      border-radius: 5px;
+      width: 55px;
+      height: 20px;
+      margin: 20px 10px 10px 0;
+      padding: 5px;
+      cursor: pointer;
+    }
+    .share-box, /*공유버튼의 svg 이미지를 absolute position으로 설정하기 위해*/
+    .write-box {/*글쓰기버튼의 png 이미지를 absolute position으로 설정하기 위해*/
+      position: relative;
+    }
+    .comments-box {/*댓글 수 버튼 크기 설정*/
+      width: 65px;
+    }
+    .likes {/*like 버튼에 하트중 가운데 네모 모양*/
+      display: inline-block;
+      margin-left: 0;
+      width: 10px;
+      height: 10px;
+      background: #daebf1;
+      position: relative;
+      transform: rotate(45deg);/*다이아몬드 모양으로 설정*/
+      transition: all ease 0.5s;
+    }
+    .likes::before,
+    .likes::after {/*하트모양중 왼쪽 오른쪽의 둥근 모양*/
+      content: "";
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      border-radius: 50%;
+      background: #daebf1;
+    }
+    .likes::before {/*위치 설정*/
+      left: -50%;
+    }
+    .likes::after {/*위치 설정*/
+      top: -50%;
+      right: 0%;
+    }
+    .share-box img{/*공유 버튼 svg 이미지*/
+      position: absolute;
+      top: 8px;
+      left: 40px;
+    }
+    .sns-share, .url-after{/*공유버튼 클릭시 나올 sns 박스와, url 복사 버튼 클릭시 나올 url 안내사항*/
+      display: none;/*클릭시 보일수 있도록 처음에는 보이지 않도록 설정*/
+      position: relative;
+      top: -8px;
+      left: 85px;
+      z-index: 100;
+      background: white;
+      width: 300px;
+      height: 90px;
+      border: 2px solid #E6E6E6;
+      border-radius: 5px;
+      padding: 10px 0px;
+      margin-bottom: 20px;
+      cursor: auto;
+      font-size: 0;/*url영역에 있는 url input과 url 복사 버튼 사이의 공백을 없애기 위한 설정*/
+    }
+    .sns-share img {/*sns 박스에 들어갈 각 sns의 아이콘 이미지들*/
+      margin: 0px 10px;
+      cursor: pointer;
+    }
+    .urlarea {/*url input과 복사버튼 영역*/
+      margin: 20px 10px;
+    }
+    .urlarea #url {/*해당 게시물의 url이 입력될 input 칸*/
+      background: #F4F4F4;
+      border: 1px solid #CDCDCD;
+      width: 200px;
+      height: 25px;
+      padding: 0 5px;
+      margin: 0;
+    }
+    .urlarea #urlCopy {/*url 복사 버튼*/
+      background: white;
+      border: 1px solid #CDCDCD;
+      height: 27px;
+      cursor: pointer;
+      padding: 0 5px;
+      margin: 0;
+    }
+    .url-after #urlClosed {/*url 안내사항에 같이 나올 창 닫기 x*/
+      position: absolute;
+      top: -3px;
+      left: 280px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .url-after p {/*url 안내사항*/
+      font-size: 15px;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    #comments{/*댓글 수 버튼 클릭 시 나올 댓글 창*/
+      display: none;
+      position: relative;
+      top: 0px;
+      left: 0px;
+      width: 610px;
+      background: #EEEEEE;
+      border-radius: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+    #comments > p {/* "댓글쓰기" 글자 css*/
+      font-size: 12px;
+      font-weight: bold;
+      padding: 20px 0 10px 0;
+      margin: 0 15px;
+      border-bottom: 1px solid #CDCDCD;
+    }
+    #comments .user {/*댓글 작성자의 프로필 이미지, 아이디 역역*/
+      margin-top: 10px;
+      margin-left: 15px;
+      position: relative;
+    }
+    #comments label{/*댓글 작성자의 프로필 이미지 첨부기능 input과 연결된 label*/
+      display: inline-block;
+      background-image: url("images/user.svg");/*기본 이미지 설정*/
+      border: 1px solid #CDCDCD;
+      width: 25px;
+      height: 25px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+      vertical-align: top;
+      cursor: pointer;
+    }
+    .user #photo, #profile-change {/*댓글 작성자의 프로필 이미지 첨부기능 input*/
+      width: 0.1px;/*보이지 않게 설정*/
+      height: 0.1px;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    .user .camera {/*댓글 입력 칸에 있는 기본 이미지 위의 카메라 이미지*/
+      display: inline-block;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+    .user .id {/*댓글 입력 칸에 있는 아이디 입력 칸*/
+      display: inline-block;
+      width: 50px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    input::-webkit-input-placeholder {/*input 칸(search바,댓글칸의 아이디 입력칸, 프로필의 닉네임)의 place 홀더 css*/
+      font-style: italic;
+    }
+    #keyword:focus::-webkit-input-placeholder,
+    .user .id:focus::-webkit-input-placeholder,/*input 칸(search바,댓글 칸의 아이디 입력칸, 프로필의 닉네임)*/
+    textarea:focus::-webkit-input-placeholder {/*textarea 칸(댓글 입력 칸)의 place 홀더 focus시*/
+      color: transparent;/*place 홀더 글자 사라지게 설정*/
+    }
+    #comments .user-comment .user span {/*이미 작성된 댓글의 아이디 영역*/
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .user-comment  p {/*이미 작성된 댓글의 내용 부분*/
+      display: block;
+      font-size: 13px;
+      margin: 0 20px;
+    }
+    .user-comment > span{/*이미 작성된 댓글의 날짜 부분*/
+      display: block;
+      font-size: 10px;
+      padding: 3px 0 10px 0;
+      margin: 0 20px;
+      color: grey;
+    }
+    .user-comment {/*이미 작성된 댓글 영역 보이지 않도록 설정; 실제 댓글 입력시에 보여질 댓글 형식으로만 이용할 예정*/
+      display: none;
+    }
+
+    .textarea {/*댓글 입력 영역*/
+      position: relative;
+      background: white;
+      width: 550px;
+      height: 155px;
+      padding: 5px;
+      margin: 20px auto;
+      border: 1px solid #CDCDCD;
+      border-radius: 5px;
+    }
+    .comments-text {/*댓글 입력 영역 중 텍스트 입력 칸*/
+      position: absolute;
+      left: 0px;
+      width: 545px;
+      height: 80px;
+      padding-left: 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-bottom: 1px solid #CDCDCD;/*등록 버튼과의 사이에 경계를 표현*/
+
+      resize: none; /*textarea 크기 조절 막기*/
+      z-index: 1; /*등록 버튼과의 경계를 표현하기 위해 등록버튼보다 z-index값을 크게 줌 */
+    }
+    .comments-submit {/*댓글 입력 영역 중 등록 버튼*/
+      position: absolute;
+      left: 510px;
+      top: 130px;
+      background: white;
+      width: 50px;
+      height: 35px;
+      border: none;
+      border-left: 1px solid #CCCCCC;
+      cursor: pointer;
+    }
+
+/* 우측 구성 */
+
+    /*본인 프로필*/
+    .profile {/*본인 프로필 영역*/
+      height: 300px;
+      border: 1px solid grey;
+      border-radius: 10px;
+      padding: 5px 0 0 5px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .profile-image {/*본인 프로필 이미지*/
+      width: 180px;
+      height: 180px;
+      margin: 4px;
+      background-image: url(images/cat.jpg);
+      background-size: cover;
+    }
+    .profile p{/*본인 프로필 내의 닉네임과 아이디*/
+      font-size: 11px;
+      margin: 2px 0 0 5px;
+    }
+    .profile span{/*본인 프로필 내의 프로필 버튼*/
+      display: block;
+      font-size: 10px;
+      margin: 10px 0 0 5px;
+      cursor: pointer;
+    }
+    #write-button {/*본인 프로필 내의 글쓰기 버튼*/
+      position: absolute;
+      top: 0px;
+      left: 17px;
+    }
+    .write-box img{/*글쓰기 버튼 svg 이미지*/
+      position: absolute;
+      top: 8px;
+      left: 5px;
+    }
+    .profile .relationship{
+      position: absolute;
+      top: 275px;
+      left: 50px;
+    }
+    .profile .relationship input{/*친구맺기 버튼*/
+      width: 100px;
+      background: white;
+      border: 1px solid grey;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .profile .relationship input:hover{/*친구맺기 버튼 hover 시*/
+      background: #edf5f8;
+      }
+    /*카테고리, 최근 글*/
+    .aside-list {
+      position: relative;
+      padding: 0px 0 15px 0;
+    }
+    .aside-list > h3 {/*카테고리, 최근 글 글자*/
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .aside-list p,
+    .sub-category-button {/*모든 접기 버튼*/
+      position: absolute;
+      left: 180px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      padding-top: 3px;
+    }
+    .aside-list .category-button,/*카테고리, 최신글 접기 버튼*/
+    .aside-list .recent-button {
+      top: 0;
+      color: #7AA2BA;
+    }
+    .aside-list .Best-button ,/*Best 항목 접기 버튼*/
+    .aside-list .Action-button,/*Actoin 항목 접기 버튼*/
+    .aside-list .Comedy-button,/*Comedy 항목 접기 버튼*/
+    .aside-list .Romance-button {/*Romaance 항목 접기 버튼*/
+      display: inline;
+      color: #6C6C6C;
+    }
+    .aside-list li {/*카테고리 내 모든 항목*/
+      position: relative;
+      display: inline;
+    }
+    .aside-list li :hover{/*카테고리 내 모든 항목 hover시*/
+      text-decoration: underline;
+    }
+    .aside-list .second-image {/*하위 카테고리 나타내는 이미지*/
+      position: absolute;
+      top: 2px;
+      left: 7px;
+    }
+    .aside-list .third-image {/*게시글 스타일 나타내는 이미지*/
+      position: absolute;
+      top: 6px;
+      left: 12px;
+    }
+    .aside-list li .first-category {/*전체 보기 항목*/
+      font-size: 13px;
+      color: #6C6C6C;
+      margin-left: 0px;
+    }
+    .aside-list li .second-category {/*Best, Action, Comedy, Romance 항목*/
+      font-size: 13px;
+      color: #6C6C6C;
+      margin-left: 23px;
+      font-weight: bold;
+    }
+    .aside-list li .third-category {/*그 외 게시글 항목들*/
+      font-size: 13px;
+      color: #6C6C6C;
+      margin-left: 28px;
+      margin-bottom: 5px;
+    }
+    .recentAll a {/*최근 글의 항목들*/
+      font-size: 13px;
+      margin-left: 10px;
+    }

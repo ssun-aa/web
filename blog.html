@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Naseo's blog</title>
+  <script type="text/javascript" src="js/service/HuskyEZCreator.js"></script>
+  <link rel="stylesheet" href="blog.css">
+  <link rel="shortcut icon" type="image⁄x-icon" href="images/blog.png">
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="blog.js"></script>
+  <style>
+    #main-section-grid {
+      width: 610px;
+      display: grid;
+      grid-template-columns: 310px 310px;
+      grid-template-rows: 300px 300px 300px;
+      margin-top: 25px;
+    }
+    .grid {
+      width: 250px;
+      border: 1px solid #C8C8C8;
+      border-radius: 10px;
+      padding: 20px 20px;
+      margin: 0 15px 15px 0;
+      cursor: pointer;
+      position: relative;
+    }
+    .images-div {
+      width: 250px;
+      height: 190px;
+      overflow: hidden;
+    }
+    .grid img {/*그리드 내 대표 이미지*/
+      display: block;
+      width: auto;
+      height: 190px;
+    }
+    .grid > h5 {/*그리드 내 제목 글자*/
+      font-weight: bold;
+      color: #525252;
+      padding-top: 10px;
+    }
+    .grid > h5:hover {/*그리드 내 제목 글자 hover시*/
+      text-decoration: underline;
+    }
+    .grid > p,
+    .grid > span   {/*그리드 내 댓글수, 날짜 글자*/
+      font-size: 13px;
+    }
+    .grid > p {
+      font-weight: bold;
+      position: absolute;
+      top: 250px;
+    }
+    .grid > span,
+    .grid > .likes-box {
+      position: absolute;
+      top: 250px;
+      left: 85px;
+
+    }
+    .grid > .likes-box {
+      top: 218px;
+      left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <audio src="audio/Be Alright.mp3" controls loop></audio>
+  </div>
+  <div id="page-wrapper">
+    <header id="main-header">
+      <hgroup>
+        <h1 class="master-title"><a href="blog.html">The things i like</a></h1>
+        <h2 class="master-description">내가 좋아하는 것들</h2>
+        <h3 class="clock"></h3>
+      </hgroup>
+    </header>
+    <nav id="main-navigation">
+      <div class="pull-left">
+        <ul class="outer-menu">
+          <li class="outer-menu-item">
+            <a href="blog.html"><span class="menu-title">HOME</span></a>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국외 드라마</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="friends.html">프렌즈</a></li>
+              <li class="inner-menu-item"><a href="strangerThing.html">기묘한 이야기</a></li>
+            </ul>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국외 영화</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="fastFurious.html">분노의 질주</a></li>
+              <li class="inner-menu-item"><a href="midnightinParis.html">미드나잇 인 파리</a></li>
+              <li class="inner-menu-item"><a href="mammaMia.html">맘마미아</a></li>
+            </ul>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국내 드라마</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="kingdom.html">킹덤</a></li>
+              <li class="inner-menu-item"><a href="signal.html">시그널</a></li>
+              <li class="inner-menu-item"><a href="camellia.html">동백꽃 필 무렵</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="pull-right">
+        <div class="search-bar">
+          <form name="searchForm" onsubmit="return false;"><!--텍스트 인풋 칸에서 엔터 입력시 새로고침 방지-->
+            <input id="keyword" type="text" class="input-search" placeholder="Search" onkeypress="if(event.keyCode==13) search();"/><!--검색 텍스트 인풋 칸; 엔터 입력시 search() 호출-->
+            <input id="keywordSearch" type="button" class="input-search-submit" value="검색" onclick="search()"/><!--검색버튼; 클릭시 search() 호출-->
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <script type="text/javascript">//그리드 형식의 페이지는 따로 검색기능 추가
+      //해당 페이지 내 검색 기능;
+      function search() {//검색 버튼 클릭 or input 칸에서 엔터 클릭시
+        $('.backgroundHighlight').removeClass('backgroundHighlight');//이전의 검색으로 highlight된 span의 클래스 제거
+        var keyword = $('#keyword').val();//사용자가 입력한 keyword 가져오기
+        if(!keyword) {//keword를 입력하지 않은경우
+          alert("검색어를 입력하세요.");
+        }else {//keword를 입력 한 경우
+          var elements = $('h5:contains('+keyword+')');//keword가 포함된 h5태그(그리드 내 제목) 가져오기
+          if (!elements.text()) {//keword가 포함된 h5태그가 비었을 경우
+            alert("검색 결과가 없습니다.")
+          }else {//keword가 포함된 h5태그가 비어있지 않을 경우
+            var topPos = elements.offset();//keword가 포함된 h5태그 위치 가져오기
+            $('body,html').animate({scrollTop:topPos.top},300);//keword가 포함된 h5태그 위치로 스크롤 이동
+            elements.each(function () {
+                var regex = new RegExp(keyword,'gi');//keword가 포함된 h5태그 내에서 해당 keyword
+                                                     //'gi' g는 해당 keyword 모두 배열로 반환,
+                                                     // i는 대소문자 구분 않고 일치하면 반환
+                $(this).html( $(this).text().replace(regex, "<span class='backgroundHighlight'>"+keyword+"</span>") );
+                //해당 keyword가 있는 위치에 위의 문자열로 대체하여 배경색을 변경
+            });
+          }
+        }
+      }
+    </script>
+
+    <div id="content">
+
+      <!--프로필 양식-->
+      <div id="profile-form">
+        <!--프로필 기본 정보 영역-->
+        <h5>기본 정보</h5>
+        <table>
+          <tr>
+            <th>이름</th>
+            <td>이선아</td>
+            <th>성별</th>
+            <td>여자</td>
+          </tr>
+          <tr>
+            <th>별명</th>
+            <td><input type="text" id="nickname-input" placeholder="닉네임을 입력하세요" value="나서" ></td><!--닉네임 변경 가능-->
+            <th></th>
+            <td></td>
+          </tr>
+        </table>
+
+        <!--프로필 사진 변경 영역-->
+        <h5>프로필 사진 변경</h5>
+        <div id="profile-input" ondragleave="dragLeave(event)" ondrop="drop(event)" ondragover="dragOver(event)"><!--이미지 나타낼 영역; drag & drop 기능-->
+          <span class="guide">drag it here</span><!-- drag & drop 기능 안내문구-->
+          <input type="file" id="profile-change"><!--이미지 선택 파일 열기; css로 보이지 않게 설정-->
+        </div>
+        <p class="fileName">선택된 파일 없음</p>
+        <div class="upload-button">
+          <label for="profile-change" onchange="profileUpload(event)"><!--이미지 선택 파일 열기와 연결된 label-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><!--업로드 svg 이미지-->
+                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+            </svg>
+            <span>Image Upload</span><!--이미지 업로드 버튼-->
+          </label>
+        </div>
+        <span id="change-image">변경</span><!--프로필 이미지 변경 버튼-->
+      </div>
+
+
+      <!--글쓰기 양식-->
+      <form id="smartEditorText"  method="post" >
+        <table>
+          <tr>
+            <td><h5>제목</h5></td>
+            <td><input type="text" id="title" name="title" style="width:540px"/></td><!--제목 입력 영역-->
+          </tr>
+          <tr>
+            <td><h5>내용</h5></td>
+            <td>
+                <textarea rows="10" cols="30" id="textTest" name="content" style="width:540px; height:350px; "></textarea><!--내용 입력 영역-->
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+                <input type="button" id="save" value="저장" style="width: 269px; padding: 2px 0px; border: 1px solid #b5b5b5;"/><!--저장 버튼-->
+                <input type="button" id="cancle" value="취소" style="width: 269px; padding: 2px 0px; border: 1px solid #b5b5b5;"/><!--저장 버튼-->
+            </td>
+          </tr>
+        </table>
+      </form>
+
+
+      <!--main section-->
+
+      <section id="main-section">
+        <h5 class="list-button">목록 열기</h5>
+        <div class="list" style="display: none;"><!--보이지 않게 설정-->
+          <table id="listTable">
+            <thead>
+              <tr>
+                <td class="left">글 제목</td>
+                <td class="center">조회수</td>
+                <td class="right">작성일</td>
+              </tr>
+            </thead>
+            <tr>
+              <td class="left"><a href="friends.html">프렌즈</a></td>
+              <td class="center">12</td>
+              <td class="right">2020.06.22</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="kingdom.html">킹덤</a></td>
+              <td class="center">22</td>
+              <td class="right">2020.06.20</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="strangerThing.html">기묘한 이야기</a></td>
+              <td class="center">23</td>
+              <td class="right">2020.06.19</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="mammaMia.html">맘마미아</a></td>
+              <td class="center">21</td>
+              <td class="right">2020.06.13</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="camellia.html">동백꽃 필 무렵</a></td>
+              <td class="center">32</td>
+              <td class="right">2020.06.10</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="fastFurious.html">분노의 질주</a></td>
+              <td class="center">22</td>
+              <td class="right">2020.06.09</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="midnightinParis.html">미드나잇 인 파리</a></td>
+              <td class="center">23</td>
+              <td class="right">2020.06.07</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="Best Drama.html">Best Drama</a></td>
+              <td class="center">29</td>
+              <td class="right">2020.06.05</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="Best Movie.html">Best Movie</a></td>
+              <td class="center">28</td>
+              <td class="right">2020.06.01</td>
+            </tr>
+
+            <tr>
+              <td class="left"><a href="friends.html">시그널</a></td>
+              <td class="center">34</td>
+              <td class="right">2020.05.26</td>
+            </tr>
+
+          </table>
+          <div id="paging" style="width: 60px; margin: 0 auto;"></div>
+        </div>
+
+        <script type="text/javascript">
+
+
+        $(function () {
+        var colPerPage = 3;//페이지 마다 나타낼 행의 수
+
+        var $listTable = $('#listTable');//목록 테이블
+        var $tr = $($listTable).find('tbody tr');//목록 테이블 하위 tr요소 선택
+        var colTotals = $tr.length;//총 행의 수
+
+
+        for (i=0; i < 4; i++) {//페이지 숫자 작성하기
+          $('<a href="#"></a>')
+          .attr('rel', i)//(0,1,2)
+          .html(i + 1+' ')//(1,2,3)
+          .appendTo('#paging');
+        }
+
+        $tr.addClass('off-screen').slice(0, colPerPage).removeClass('off-screen');//off-screen(display:none) 설정 후
+                                                                                  //페이지마다 나타낼 열의 수만큼 잘라내서 새로운 배열 만들기
+                                                                                  //off-screen(display:none) 삭제
+                                                                                  //목록 열기 버튼 누르면 바로 나올 table(페이지 숫자 선택 전에)
+
+        var $pagingLink = $('#paging a');//페이지 숫자 (1,2,3)
+        $pagingLink.on('click', function (evt) {
+          evt.preventDefault();
+          $("#paging a").css("font-size", "16px");/*페이지 숫자(1,2,3) 색 css*/
+          var $this = $(this);
+          $this.css("font-size","18px");/*선택 된 페이지 숫자 색 css */
+
+          // 0 => 0(0*3), 3(0*3+3)
+          // 1 => 3(1*3), 6(1*3+3)
+          // 2 => 6(2*3), 9(2*3+3)
+
+          var currPage = $this.attr('rel');//페이지 1이면 0, 페이지 2이면 1, 페이지 3이면 2
+          var startPage = currPage * colPerPage;// 0 => 0(0*3),   1 => 3(1*3),   2 => 6(2*3) 로 시작페이지 설정
+          var endPage = startPage + colPerPage;//  0 => 3(0*3+3), 1 => 6(1*3+3), 2 => 9(2*3+3)로 마지막페이지 설정
+
+          $tr.addClass('off-screen')//페이지 선택하면
+              .slice(startPage, endPage)//설정한 시작페이지와 마지막페이지로 배열 만들어서
+              .removeClass('off-screen');//보여줌
+          });
+        });
+        </script>
+
+        <div id="main-section-grid">
+          <div class="grid" onclick="goReplace('friends.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/friends.jpg" style="margin-left: -10px"/>
+            </div>
+            <h5>프렌즈</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.22</span>
+            <div class="likes-box" onclick="event.cancelBubble=true;like(1)" style="color:black; background-color: white;">
+              <!--클릭시 해당 ulr 이동을 막고 하트 배경 변화-->
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+
+          <div class="grid" onclick="goReplace('kingdom.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/kingdom.jpg" style="margin-left: -107px"/>
+            </div>
+            <h5>킹덤</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.20</span>
+            <div class="likes-box" onclick="event.cancelBubble=true;like(2)" style="color:black; background-color: white;">
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+
+          <div class="grid" onclick="goReplace('strangerThing.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/strangerThing.png" style="margin-left: -20px"/>
+            </div>
+            <h5>기묘한 이야기</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.19</span>
+            <div class="likes-box" onclick="event.cancelBubble=true;like(3)" style="color:black; background-color: white;">
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+
+          <div class="grid" onclick="goReplace('mammaMia.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/mammaMia.jpg" />
+            </div>
+            <h5>맘마미아</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.13</span>
+            <div class="likes-box" onclick="event.cancelBubble=true; like(4)" style="color:black; background-color: white;">
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+
+          <div class="grid" onclick="goReplace('camellia.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/camellia.jpg" style="margin-left: -45px"/>
+            </div>
+            <h5>동백꽃 필 무렵</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.10</span>
+            <div class="likes-box" onclick="event.cancelBubble=true;like(5)" style="color:black; background-color: white;">
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+          <div class="grid" onclick="goReplace('fastFurious.html')"><!--해당 게시글 url로 이동-->
+            <div class="images-div">
+              <img src="images/fastFurious.jpg" style="margin-left: -50px"/>
+            </div>
+            <h5>분노의 질주</h5>
+            <p>댓글수 0</p>
+            <span class="date">2020.06.09</span>
+            <div class="likes-box" onclick="event.cancelBubble=true;like(6)" style="color:black; background-color: white;">
+              <span>Likes</span>
+              <div class="likes"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside id="main-aside">
+        <div class="profile"><!--프로필 영역-->
+          <div class="profile-image"></div><!--프로필 이미지-->
+          <p id="nickname" style="font-weight: bold;">나서</p><!--닉네임-->
+          <p>(ssunah)</p><!--id-->
+          <span id="profile-button">프로필</span><!--프로필 보기 버튼-->
+          <div class="write-box"><!--글쓰기 버튼 영역-->
+            <img src="images/blog.png" width="17px"><!--글쓰기 png 이미지-->
+            <span id="write-button">글쓰기</span><!--글 작성 양식 보기 버튼-->
+          </div>
+          <div class="relationship">
+            <input type="button" value="친구 추가" onclick="open_page()">
+          </div>
+        </div>
+        <div class="aside-list">
+          <h3 class="category-button-set">카테고리</h3>
+          <p class="category-button-set category-button main-category-button">^</p><!--카테고리 접기 버튼-->
+          <ul class="categoryAll"><!--카테고리 항목들-->
+            <li class="first-category"><a href="all List.html" class="first-category">전체보기</a></li>
+
+            <div class="Best"><!--Best 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="blog.html" class="second-category">Best</a></li>
+              <div class="Best-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="BestAll"><!--Best 카테고리 내 항목들-->
+                <li class="third-category"><img src="images/category.png" class="third-image" width="13"><a href="Best Drama.html" class="third-category">Best Drama</a></li>
+                <br />
+                <li class="third-category"><img src="images/category.png" class="third-image" width="13"><a href="Best Movie.html" class="third-category">Best Movie</a></li>
+              </ul>
+            </div>
+
+            <div class="Action"><!--Action 카테고리-->
+                <li><img src="images/bottom.png" class="second-image" width="13"><a href="action.html" class="second-category">Action</a></li>
+                <div class="Action-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+                <ul class="ActionAll"><!--Action 카테고리 내 항목들-->
+                  <li><img src="images/category.png" class="third-image" width="13"><a href="fastFurious.html" class="third-category">분노의 질주</a></li>
+                </ul>
+            </div>
+
+            <div class="Comedy"><!--Comedy 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="comedy.html" class="second-category">Comedy</a></li>
+              <div class="Comedy-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="ComedyAll"><!--Comedy 카테고리 내 항목들-->
+                <li><img src="images/category.png" class="third-image" width="13"><a href="friends.html" class="third-category">프렌즈</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="midnightinParis.html" class="third-category">미드나잇 인 파리</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="mammaMia.html" class="third-category">맘마미아</a></li>
+              </ul>
+            </div>
+
+            <div class="Romance"><!--Romance 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="romance.html" class="second-category">Romance</a></li>
+              <div class="Romance-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="RomanceAll"><!--Romance 카테고리 내 항목들-->
+                <li><img src="images/category.png" class="third-image" width="13"><a href="midnightinParis.html" class="third-category">미드나잇 인 파리</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="mammaMia.html" class="third-category">맘마미아</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="camellia.html" class="third-category">동백꽃 필 무렵</a></li>
+              </ul>
+            </div>
+          </ul>
+        </div>
+        <div class="aside-list">
+          <h3 class="recent-button-set">최근 글</h3>
+          <p class="recent-button-set recent-button main-category-button">^</p><!--카테고리 접기 버튼-->
+          <ul class="recentAll">
+            <li><a href="friends.html">프렌즈</a></li>
+            <br />
+            <li><a href="kingdom.html">킹덤</a></li>
+            <br />
+            <li><a href="strangerThing.html">기묘한 이야기</a></li>
+            <br />
+            <li><a href="mammaMia.html">맘마미아</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <footer id="main-footer">
+      <a href="blog.html">Created By Naseo</a>
+      <!--top버튼-->
+      <div style="cursor:pointer; position:absolute; bottom:20px; right:20px; z-index:1;" onclick="window.scrollTo(0,0);"><img src="images/top.svg" width="15">TOP</div>
+    </footer>
+  </div>
+</body>
+</html>
