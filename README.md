@@ -26,3 +26,9 @@ function drop(e) {
     profileUpload(e);
 }
 ```
+
+
+* _프로필 변경 버튼 클릭 결과_   
+![profile](https://user-images.githubusercontent.com/47405655/122663045-a0708c80-d1d2-11eb-9f0c-d63673b28727.png)
+
+
