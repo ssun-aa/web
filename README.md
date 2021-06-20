@@ -5,7 +5,7 @@
 다양한 기능에 대해서는 하나씩 아래서 설명하겠습니다.   
 
 ### 1. 시계 기능
-![clock](https://user-images.githubusercontent.com/47405655/122663445-7bc9e400-d1d5-11eb-84e7-7c641aa4b812.png)
+![clock](https://user-images.githubusercontent.com/47405655/122663445-7bc9e400-d1d5-11eb-84e7-7c641aa4b812.png)   
 블로그 상단쪽에 위치하는 시계로, 1초마다 시간이 바뀝니다.    
    
    
