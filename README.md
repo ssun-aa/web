@@ -26,7 +26,7 @@ setInterval("nowclock()",1000);//1초마다 함수 호출
 ```     
 
 ### 2. 검색 기능
-![search](https://user-images.githubusercontent.com/47405655/122663570-6c976600-d1d6-11eb-9ffb-52a4bf64c8d7.png) 
+![search](https://user-images.githubusercontent.com/47405655/122663570-6c976600-d1d6-11eb-9ffb-52a4bf64c8d7.png)   
 검색어를 입력하고 검색하면 해당 단어위치로 스크롤이 이동하고, 해당 검색어를 모두 찾아 배경색을 바꿔 찾아줍니다.   
    
 * _검색 기능_   
