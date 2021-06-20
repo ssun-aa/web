@@ -25,7 +25,39 @@ $(document).ready(nowclock());
 setInterval("nowclock()",1000);//1초마다 함수 호출
 ```     
 
-### 2. 프로필 기능
+### 2. 검색 기능
+![search](https://user-images.githubusercontent.com/47405655/122663570-6c976600-d1d6-11eb-9ffb-52a4bf64c8d7.png) 
+검색어를 입력하고 검색하면 해당 단어위치로 스크롤이 이동하고, 해당 검색어를 모두 찾아 배경색을 바꿔 찾아줍니다.   
+   
+* _검색 기능_   
+```java script
+//검색
+function search() {//검색 버튼 클릭 or input 칸에서 엔터 클릭시
+  $('.backgroundHighlight').removeClass('backgroundHighlight');//이전의 검색으로 highlight된 span의 클래스 제거
+  var keyword = $('#keyword').val();//사용자가 입력한 keyword 가져오기
+  if(!keyword) {//keword를 입력하지 않은경우
+    alert("검색어를 입력하세요.");
+  }else {//keword를 입력 한 경우
+    var elements = $('p:contains('+keyword+')');//keword가 포함된 h5태그 가져오기
+    if (!elements.text()) {//keword가 포함된 h5태그가 비었을 경우
+      alert("검색 결과가 없습니다.")
+    }else {//keword가 포함된 h5태그가 비어있지 않을 경우
+      var topPos = elements.offset();//keword가 포함된 h5태그 위치 가져오기
+      $('body,html').animate({scrollTop:topPos.top},300);//keword가 포함된 h5태그 위치로 스크롤 이동
+      elements.each(function () {
+          var regex = new RegExp(keyword,'gi');//keword가 포함된 h5태그 내에서 해당 keyword
+                                               //'gi' g는 해당 keyword 모두 배열로 반환,
+                                               // i는 대소문자 구분 않고 일치하면 반환
+          $(this).html( $(this).text().replace(regex, "<span class='backgroundHighlight'>"+keyword+"</span>") );
+          //해당 keyword가 있는 위치에 위의 문자열로 대체하여 배경색을 변경
+      });
+    }
+  }
+}
+```     
+
+
+### 3. 프로필 기능
 ![profile](https://user-images.githubusercontent.com/47405655/122662866-54711800-d1d1-11eb-93e6-a4b225cb87ee.png)
 별명은 변경이 가능하며, 프로필 사진은 upload버튼이나 drag&drop을 이용하여 사진을 업로드 할 수 있습니다.   
    
@@ -47,11 +79,59 @@ function drop(e) {
     profileUpload(e);
 }
 ```   
+
+* _이미지 업로드 시_   
+```java script
+var fileName = document.getElementsByClassName('fileName');
+
+document.addEventListener("DOMContentLoaded", function () {
+    var input = document.querySelector( '#profile-input' );
+    input.addEventListener( 'change', profileUpload);
+});
+
+function profileUpload(e){
+    var profileImage = e.target.files || e.dataTransfer.files;
+    if (profileImage.length > 1) {//파일 갯수가 한개보다 많으면
+        alert('하나의 이미지만 업로드 해주세요.');//alert
+        return;
+    }
+    if (profileImage[0].type.match(/image.*/)) {//파일이 이미지 형식일 경우
+        $('#profile-input').css({//이미지 배경 속성으로 첨부
+            "background-image": "url(" + window.URL.createObjectURL(profileImage[0]) + ")",
+            "outline": "none",
+            "background-size": "100% 100%"
+        });
+        $('.guide').css({//drag & drop 안내문구 삭제
+            "visibility": "hidden"
+        })
+        $('.fileName').text(profileImage[0].name);//파일 이름 값 넣기
+    }else{//이미지 형식이 아닐 경우
+        alert('이미지가 아닙니다.');
+        return;
+    }
+
+    $('#change-image').click(function(){//변경 등록 버튼 클릭시
+      $('.profile-image').css({//사용자가 업로드 한 사진으로 이미지 설정
+        "background-image": "url(" + window.URL.createObjectURL(profileImage[0]) + ")",
+        "background-size": "180px 180px"
+      });
+    });
+}
+
+$(function(){
+  $('#change-image').click(function(){//변경 등록 버튼 클릭시
+      if ($('#profile-input').css("background-image")=="none") {//이미지 업로드하지 않았으면
+        alert('이미지를 업로드 해주세요.')//alert
+      }
+  });
+});
+```   
+
    
 * _프로필 변경 버튼 클릭 결과_   
 ![profile](https://user-images.githubusercontent.com/47405655/122663180-84211f80-d1d3-11eb-9edb-c7f0ddaca08d.png)   
    
-### 3. 좋아요 기능
+### 4. 좋아요 기능
 ![like](https://user-images.githubusercontent.com/47405655/122663213-c2b6da00-d1d3-11eb-8748-74a06813f181.png)
 좋아요 버튼을 클릭하면 like함수가 호출되어 버튼의 배경색과 글씨색이 변경됩니다. 좋아요 버튼이 눌린상태에서 한번 더 누르면 원래 상태로 되돌아가게 됩니다. 
 
@@ -86,7 +166,7 @@ function like(index) {//like버튼 클릭시 변화
 }
 ```   
     
-### 4. 전체 글 목록
+### 5. 전체 글 목록
 ![list](https://user-images.githubusercontent.com/47405655/122663327-8afc6200-d1d4-11eb-8cf8-b3862c9a9822.png)
 목록 열기를 클릭하면 전체 글 목록이 보이도록 설정했습니다. 한 목록 페이지에 3개의 글 목록이 나열되고 총 10개의 글이 존재해, 목록 페이지 수는 4개로 구성됩니다.    
 
