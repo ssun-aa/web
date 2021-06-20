@@ -166,6 +166,55 @@ function like(index) {//like버튼 클릭시 변화
 }
 ```   
     
+       
+### 4. SNS 공유 기능
+![SNS](https://user-images.githubusercontent.com/47405655/122663649-360e1b00-d1d7-11eb-9429-7f82812ea902.png)   
+공유 버튼 클릭시 각 SNS의 버튼들과 해당 게시글의 url이 나타납니다. 각 SNS 버튼들을 클릭하면 SNS의 공유창이 띄워집니다.   
+
+
+* _SNS 기능_   
+```java script
+//likes 버튼
+<div class="sns-share"><!--sns 박스-->
+          <img src="./images/sns_naver.png" onclick="naver()" width="40"><!--naver-->
+          <img src="./images/sns_face.png" onclick="facebook()" width="40"><!--facebook-->
+          <img src="./images/sns_tw.png" onclick="twitter()" width="40"><!--twitter-->
+          <img src="./images/sns_google.png" onclick="google()"width="40"></a><!--google-->
+          <img src="./images/sns_kakao.png" onclick="kakao()" width="40"></a><!--kakao-->
+
+          <script type="text/javascript">/*sns 이미지 클릭시 발생; 각 sns의 공유창 띄우기*/
+            function naver(){
+              window.open('http://share.naver.com/web/shareView.nhn?url=' +encodeURIComponent(document.URL)+'&title='+encodeURIComponent(document.title), 'naversharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function facebook(){
+              window.open('https://www.facebook.com/sharer/sharer.php?u=' +encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function twitter(){
+              window.open('https://twitter.com/intent/tweet?text=[%EA%B3%B5%EC%9C%A0]%20' +encodeURIComponent(document.URL)+'%20-%20'+encodeURIComponent(document.title), 'twittersharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function google(){
+              window.open('https://plus.google.com/share?url=' +encodeURIComponent(document.URL), 'googleplussharedialog','menubar=no,toolbar=no,resizable=yes, scrollbars=yes,height=350,width=600');
+            }
+            function kakao(){
+              window.open('https://story.kakao.com/s/share?url=' +encodeURIComponent(document.URL), 'kakaostorysharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes, height=400,width=600');
+            }
+          </script>
+```     
+
+* _url 복사_   
+```java script
+function getURL(){
+  var url = location.href;//현재 url 저장
+  document.getElementById('url').value = url;// 해당 id의 value 값으로 url 주소 넣기
+}
+
+function copyLink(str) {//URL 복사 기능
+  $("#url").select();//url 영역 선택 후
+  document.execCommand('copy');//복사
+  return;
+};
+```   
+
 ### 5. 전체 글 목록
 ![list](https://user-images.githubusercontent.com/47405655/122663327-8afc6200-d1d4-11eb-8cf8-b3862c9a9822.png)
 목록 열기를 클릭하면 전체 글 목록이 보이도록 설정했습니다. 한 목록 페이지에 3개의 글 목록이 나열되고 총 10개의 글이 존재해, 목록 페이지 수는 4개로 구성됩니다.    
