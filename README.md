@@ -271,4 +271,5 @@ function copyLink(str) {//URL 복사 기능
 더 많은 기능들은 아래 링크를 통해 보실 수 있습니다.   
 
 [블로그 전체 기능 설명 pdf][link]
+
 [link]: https://github.com/ssun-aa/web/blob/8edf7df157890017278edb56d4965a2b2db5dea5/%EA%B8%B0%EB%A7%90%EA%B3%A0%EC%82%AC%20%EC%98%A8%EB%9D%BC%EC%9D%B8%20%EA%B3%BC%EC%A0%9C.pdf "블로그 전체 기능 설명" 
