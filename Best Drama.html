@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Naseo's blog</title>
+  <script type="text/javascript" src="js/service/HuskyEZCreator.js"></script>
+  <link rel="stylesheet" href="blog.css">
+  <link rel="shortcut icon" type="image⁄x-icon" href="images/blog.png">
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="blog.js"></script>
+</head>
+
+<body>
+  <div>
+    <audio src="audio/Be Alright.mp3" controls="controls"></audio>
+  </div>
+  <div id="page-wrapper">
+    <header id="main-header">
+      <hgroup>
+        <h1 class="master-title"><a href="blog.html">The things i like</a></h1>
+        <h2 class="master-description">내가 좋아하는 것들</h2>
+        <h3 class="clock"></h3>
+      </hgroup>
+    </header>
+    <nav id="main-navigation">
+      <div class="pull-left">
+        <ul class="outer-menu">
+          <li class="outer-menu-item">
+            <a href="blog.html"><span class="menu-title">HOME</span></a>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국외 드라마</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="friends.html">프렌즈</a></li>
+              <li class="inner-menu-item"><a href="strangerThing.html">기묘한 이야기</a></li>
+            </ul>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국외 영화</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="fastFurious.html">분노의 질주</a></li>
+              <li class="inner-menu-item"><a href="midnightinParis.html">미드나잇 인 파리</a></li>
+              <li class="inner-menu-item"><a href="mammaMia.html">맘마미아</a></li>
+            </ul>
+          </li>
+          <li class="outer-menu-item">
+            <span class="menu-title">국내 드라마</span>
+            <ul class="inner-menu">
+              <li class="inner-menu-item"><a href="kingdom.html">킹덤</a></li>
+              <li class="inner-menu-item"><a href="signal.html">시그널</a></li>
+              <li class="inner-menu-item"><a href="camellia.html">동백꽃 필 무렵</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="pull-right">
+        <div class="search-bar">
+          <form name="searchForm" onsubmit="return false;"><!--텍스트 인풋 칸에서 엔터 입력시 새로고침 방지-->
+            <input id="keyword" type="text" class="input-search" placeholder="Search" onkeypress="if(event.keyCode==13) search();"/><!--검색 텍스트 인풋 칸; 엔터 입력시 search() 호출-->
+            <input id="keywordSearch" type="button" class="input-search-submit" value="검색" onclick="search()"/><!--검색버튼; 클릭시 search() 호출-->
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div id="content">
+      <!--글쓰기 양식-->
+      <form id="smartEditorText"  method="post" >
+        <table>
+          <tr>
+            <td><h5>제목</h5></td>
+            <td><input type="text" id="title" name="title" style="width:540px"/></td><!--제목 입력 영역-->
+          </tr>
+          <tr>
+            <td><h5>내용</h5></td>
+            <td>
+                <textarea rows="10" cols="30" id="textTest" name="content" style="width:540px; height:350px; "></textarea><!--내용 입력 영역-->
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+                <input type="button" id="save" value="저장" style="width: 269px; padding: 2px 0px; border: 1px solid #b5b5b5;"/><!--저장 버튼-->
+                <input type="button" id="cancle" value="취소" style="width: 269px; padding: 2px 0px; border: 1px solid #b5b5b5;"/><!--저장 버튼-->
+            </td>
+          </tr>
+        </table>
+      </form>
+
+
+
+      <!--프로필 양식-->
+      <div id="profile-form">
+        <!--프로필 기본 정보 영역-->
+        <h5>기본 정보</h5>
+        <table>
+          <tr>
+            <th>이름</th>
+            <td>이선아</td>
+            <th>성별</th>
+            <td>여자</td>
+          </tr>
+          <tr>
+            <th>별명</th>
+            <td><input type="text" id="nickname-input" placeholder="닉네임을 입력하세요" value="나서" ></td><!--닉네임 변경 가능-->
+            <th></th>
+            <td></td>
+          </tr>
+        </table>
+
+        <!--프로필 사진 변경 영역-->
+        <h5>프로필 사진 변경</h5>
+        <div id="profile-input" ondragleave="dragLeave(event)" ondrop="drop(event)" ondragover="dragOver(event)"><!--이미지 나타낼 영역; drag & drop 기능-->
+          <span class="guide">drag it here</span><!-- drag & drop 기능 안내문구-->
+          <input type="file" id="profile-change"><!--이미지 선택 파일 열기; css로 보이지 않게 설정-->
+        </div>
+        <p class="fileName">선택된 파일 없음</p>
+        <div class="upload-button">
+          <label for="profile-change" onchange="profileUpload(event)"><!--이미지 선택 파일 열기와 연결된 label-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><!--업로드 svg 이미지-->
+                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+            </svg>
+            <span>Image Upload</span><!--업로드 안내 문ㄴ구-->
+          </label>
+        </div>
+        <span id="change-image">변경</span><!--프로필 이미지 변경 버튼-->
+      </div>
+
+      <!--main section-->
+      <section id="main-section">
+        <h5 class="list-button">목록 열기</h5>
+        <div class="list" style="display: none;"><!--보이지 않게 설정-->
+          <table id="listTable">
+            <thead>
+              <tr>
+                <td class="left">글 제목</td>
+                <td class="center">조회수</td>
+                <td class="right">작성일</td>
+              </tr>
+            </thead>
+            <tr>
+              <td class="left"><a href="friends.html">프렌즈</a></td>
+              <td class="center">12</td>
+              <td class="right">2020.06.22</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="kingdom.html">킹덤</a></td>
+              <td class="center">22</td>
+              <td class="right">2020.06.20</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="strangerThing.html">기묘한 이야기</a></td>
+              <td class="center">23</td>
+              <td class="right">2020.06.19</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="mammaMia.html">맘마미아</a></td>
+              <td class="center">21</td>
+              <td class="right">2020.06.13</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="camellia.html">동백꽃 필 무렵</a></td>
+              <td class="center">32</td>
+              <td class="right">2020.06.10</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="fastFurious.html">분노의 질주</a></td>
+              <td class="center">22</td>
+              <td class="right">2020.06.09</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="midnightinParis.html">미드나잇 인 파리</a></td>
+              <td class="center">23</td>
+              <td class="right">2020.06.07</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="Best Drama.html">Best Drama</a></td>
+              <td class="center">29</td>
+              <td class="right">2020.06.05</td>
+            </tr>
+            <tr>
+              <td class="left"><a href="Best Movie.html">Best Movie</a></td>
+              <td class="center">28</td>
+              <td class="right">2020.06.01</td>
+            </tr>
+
+            <tr>
+              <td class="left"><a href="friends.html">시그널</a></td>
+              <td class="center">34</td>
+              <td class="right">2020.05.26</td>
+            </tr>
+
+          </table>
+          <div id="paging" style="width: 60px; margin: 0 auto;"></div>
+        </div>
+
+        <script type="text/javascript">
+
+
+        $(function () {
+        var colPerPage = 3;//페이지 마다 나타낼 행의 수
+
+        var $listTable = $('#listTable');//목록 테이블
+        var $tr = $($listTable).find('tbody tr');//목록 테이블 하위 tr요소 선택
+        var colTotals = $tr.length;//총 행의 수
+
+
+        for (i=0; i < 4; i++) {//페이지 숫자 작성하기
+          $('<a href="#"></a>')
+          .attr('rel', i)//(0,1,2)
+          .html(i + 1+' ')//(1,2,3)
+          .appendTo('#paging');
+        }
+
+        $tr.addClass('off-screen').slice(0, colPerPage).removeClass('off-screen');//off-screen(display:none) 설정 후
+                                                                                  //페이지마다 나타낼 열의 수만큼 잘라내서 새로운 배열 만들기
+                                                                                  //off-screen(display:none) 삭제
+                                                                                  //목록 열기 버튼 누르면 바로 나올 table(페이지 숫자 선택 전에)
+
+        var $pagingLink = $('#paging a');//페이지 숫자 (1,2,3)
+        $pagingLink.on('click', function (evt) {
+          evt.preventDefault();
+          $("#paging a").css("font-size", "16px");/*페이지 숫자(1,2,3) 색 css*/
+          var $this = $(this);
+          $this.css("font-size","18px");/*선택 된 페이지 숫자 색 css */
+
+
+          // 0 => 0(0*3), 3(0*3+3)
+          // 1 => 3(1*3), 6(1*3+3)
+          // 2 => 6(2*3), 9(2*3+3)
+
+          var currPage = $this.attr('rel');//페이지 1이면 0, 페이지 2이면 1, 페이지 3이면 2
+          var startPage = currPage * colPerPage;// 0 => 0(0*3),   1 => 3(1*3),   2 => 6(2*3) 로 시작페이지 설정
+          var endPage = startPage + colPerPage;//  0 => 3(0*3+3), 1 => 6(1*3+3), 2 => 9(2*3+3)로 마지막페이지 설정
+
+          $tr.addClass('off-screen')//페이지 선택하면
+              .slice(startPage, endPage)//설정한 시작페이지와 마지막페이지로 배열 만들어서
+              .removeClass('off-screen');//보여줌
+          });
+        });
+        </script>
+
+        <article>
+          <div class="article-header">
+            <h1 class="article-title">Best Drama</h1>
+            <p class="article-date">2020년 06월 05일</p>
+          </div>
+          <div class="article-body">
+            <img src="images/friends.jpg" width="430" />
+            <br />
+            <br />
+            <p>
+              유명한 미국 시트콤 드라마로 총 10개의 시즌으로 구성되어 있다.<br />
+              첫시즌은 1994년도에 방영했으며 마지막 시즌은 2004년에 방영하였다.<br />
+              한 시즌에 약 20화의 에피소드들로 채워져 있으며, 한 에피소드는 20분 내외의 러닝타임을 가진다.<br />
+              등장인물은 총 여섯명으로 여자 셋, 남자 셋으로 구성되어있다.<br />
+              여자 캐릭터는 모니카, 레이첼, 피비가 등장하고, 남자 캐릭터로는 챈들러, 로스, 조이가 등장한다.<br />
+              이들은 모두 친구관계이며, 매 에피소드마다 여섯 친구들의 좌충우돌 일상 생활을 그려낸다.<br />
+              이 때문인지 한국에서는 일상 영어 공부하기에 좋은 드라마로 유명하다.<br />
+            </p>
+          </div>
+        </article>
+
+        <div class="likes-box" onclick="like(0)" style="color:black; background-color: white;"><!--좋아요 버튼 영역; 클릭시 배경 색 변경-->
+          <span>Likes</span>
+          <div class="likes"></div><!--하트 모양-->
+        </div>
+
+        <div class="share-box"><!--공유 버튼 영역-->
+          <span>공유</span>
+          <img src="images/share.svg" width="17px"><!--공유 버튼 svg 이미지-->
+        </div>
+
+        <div class="comments-box"><!--댓글 버튼 영역-->
+          <span>댓글수 0</span>
+        </div>
+
+        <div class="sns-share"><!--sns 박스-->
+          <img src="./images/sns_naver.png" onclick="naver()" width="40"><!--naver-->
+          <img src="./images/sns_face.png" onclick="facebook()" width="40"><!--facebook-->
+          <img src="./images/sns_tw.png" onclick="twitter()" width="40"><!--twitter-->
+          <img src="./images/sns_google.png" onclick="google()"width="40"></a><!--google-->
+          <img src="./images/sns_kakao.png" onclick="kakao()" width="40"></a><!--kakao-->
+
+          <script type="text/javascript">/*sns 이미지 클릭시 발생; 각 sns의 공유창 띄우기*/
+            function naver(){
+              window.open('http://share.naver.com/web/shareView.nhn?url=' +encodeURIComponent(document.URL)+'&title='+encodeURIComponent(document.title), 'naversharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function facebook(){
+              window.open('https://www.facebook.com/sharer/sharer.php?u=' +encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function twitter(){
+              window.open('https://twitter.com/intent/tweet?text=[%EA%B3%B5%EC%9C%A0]%20' +encodeURIComponent(document.URL)+'%20-%20'+encodeURIComponent(document.title), 'twittersharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+            }
+            function google(){
+              window.open('https://plus.google.com/share?url=' +encodeURIComponent(document.URL), 'googleplussharedialog','menubar=no,toolbar=no,resizable=yes, scrollbars=yes,height=350,width=600');
+            }
+            function kakao(){
+              window.open('https://story.kakao.com/s/share?url=' +encodeURIComponent(document.URL), 'kakaostorysharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes, height=400,width=600');
+            }
+          </script>
+
+          <div class="urlarea"><!--url 영역-->
+            <input id="url" type="text"><!--현재 페이지 url이 입력될 칸-->
+            <input id="urlCopy" type="button" value="URL 복사" onclick="copyLink();"><!--url 복사 버튼; 클릭시 url이 복사됨-->
+          </div>
+        </div>
+
+        <div class="url-after"><!--url 복사 버튼을 누르고 나면 나타날 안내 창 영역-->
+          <span id="urlClosed" onclick="this.parentElement.style.display='none'" class="close">&times</span><!--안내 창을 닫을 수 있는 x 버튼-->
+          <p><!--안내 문구-->
+            주소가 복사되었습니다.<br />
+            원하는 곳에 붙여넣기(Ctrl+V)해주세요.
+          </p>
+        </div>
+
+        <div id="comments"><!--댓글 창 영역-->
+          <p>댓글쓰기</p>
+          <div class="user-comment-group"><!--댓글 입력시 입력될 댓글 양식; 보이지 않게 설정 되어 있음-->
+            <div class="user-comment">
+              <div class="user">
+                <label for="photo" class="userImg"></label>
+                <span class="userId"></span>
+              </div>
+              <p class="text"></p>
+              <span class="date"></span>
+            </div>
+          </div>
+          <div class="textarea"><!--댓글 입력 칸-->
+            <div class="user"><!--댓글 작성자의 정보 영역-->
+              <label for="photo" id="img" onchange="changeImage(event)"></label><!--댓글 작성자의 프로필 이미지 파일 선택과 연결된 label-->
+              <img class="camera" src="images/camera.svg" width="10px"><!--댓글 작성자의 기본 프로필 이미지 위에 위치한 카메라 이미지-->
+              <input type="file" id="photo"><!--댓글 작성자의 프로필 이미지 파일 선택; 보이지 않음-->
+              <input type="text" class="id" placeholder="닉네임"><!--닉네임 입력 칸-->
+            </div>
+
+              <textarea rows="8" cols="80" class="comments-text" placeholder="댓글을 달아주세요." maxlength="100"></textarea><!--댓글 내용 입력 칸-->
+              <input type="submit" class="comments-submit" value="등록"><!--댓글 등록 버튼-->
+          </div>
+        </div>
+
+      </section>
+      <aside id="main-aside">
+        <div class="profile"><!--프로필 영역-->
+          <div class="profile-image"></div><!--프로필 이미지-->
+          <p id="nickname" style="font-weight: bold;">나서</p><!--닉네임-->
+          <p>(ssunah)</p><!--id-->
+          <span id="profile-button">프로필</span><!--프로필 보기 버튼-->
+          <div class="write-box"><!--글쓰기 버튼 영역-->
+            <img src="images/blog.png" width="17px"><!--글쓰기 png 이미지-->
+            <span id="write-button">글쓰기</span><!--글 작성 양식 보기 버튼-->
+          </div>
+          <div class="relationship">
+            <input type="button" value="친구 추가" onclick="open_page()">
+          </div>
+        </div>
+        <div class="aside-list">
+          <h3 class="category-button-set">카테고리</h3>
+          <p class="category-button-set category-button main-category-button">^</p><!--카테고리 접기 버튼-->
+          <ul class="categoryAll"><!--카테고리 항목들-->
+            <li class="first-category"><a href="all List.html" class="first-category">전체보기</a></li>
+
+            <div class="Best"><!--Best 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="blog.html" class="second-category">Best</a></li>
+              <div class="Best-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="BestAll"><!--Best 카테고리 내 항목들-->
+                <li class="third-category"><img src="images/category.png" class="third-image" width="13"><a href="Best Drama.html" class="third-category">Best Drama</a></li>
+                <br />
+                <li class="third-category"><img src="images/category.png" class="third-image" width="13"><a href="Best Movie.html" class="third-category">Best Movie</a></li>
+              </ul>
+            </div>
+
+            <div class="Action"><!--Action 카테고리-->
+                <li><img src="images/bottom.png" class="second-image" width="13"><a href="action.html" class="second-category">Action</a></li>
+                <div class="Action-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+                <ul class="ActionAll"><!--Action 카테고리 내 항목들-->
+                  <li><img src="images/category.png" class="third-image" width="13"><a href="fastFurious.html" class="third-category">분노의 질주</a></li>
+                </ul>
+            </div>
+
+            <div class="Comedy"><!--Comedy 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="comedy.html" class="second-category">Comedy</a></li>
+              <div class="Comedy-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="ComedyAll"><!--Comedy 카테고리 내 항목들-->
+                <li><img src="images/category.png" class="third-image" width="13"><a href="friends.html" class="third-category">프렌즈</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="midnightinParis.html" class="third-category">미드나잇 인 파리</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="mammaMia.html" class="third-category">맘마미아</a></li>
+              </ul>
+            </div>
+
+            <div class="Romance"><!--Romance 카테고리-->
+              <li><img src="images/bottom.png" class="second-image" width="13"><a href="romance.html" class="second-category">Romance</a></li>
+              <div class="Romance-button sub-category-button">^</div><!--카테고리 접기 버튼-->
+              <ul class="RomanceAll"><!--Romance 카테고리 내 항목들-->
+                <li><img src="images/category.png" class="third-image" width="13"><a href="midnightinParis.html" class="third-category">미드나잇 인 파리</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="mammaMia.html" class="third-category">맘마미아</a></li>
+                <br />
+                <li><img src="images/category.png" class="third-image" width="13"><a href="camellia.html" class="third-category">동백꽃 필 무렵</a></li>
+              </ul>
+            </div>
+          </ul>
+        </div>
+        <div class="aside-list">
+          <h3 class="recent-button-set">최근 글</h3>
+          <p class="recent-button-set recent-button main-category-button">^</p><!--카테고리 접기 버튼-->
+          <ul class="recentAll">
+            <li><a href="friends.html">프렌즈</a></li>
+            <br />
+            <li><a href="kingdom.html">킹덤</a></li>
+            <br />
+            <li><a href="strangerThing.html">기묘한 이야기</a></li>
+            <br />
+            <li><a href="mammaMia.html">맘마미아</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <footer id="main-footer">
+      <a href="blog.html">Created By Naseo</a>
+      <!--top버튼-->
+      <div style="cursor:pointer; position:absolute; bottom:20px; right:20px; z-index:1;" onclick="window.scrollTo(0,0);"><img src="images/top.svg" width="15">TOP</div>
+    </footer>
+  </div>
+</body>
+</html>
