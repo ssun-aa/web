@@ -8,7 +8,7 @@
 ![profile](https://user-images.githubusercontent.com/47405655/122662866-54711800-d1d1-11eb-93e6-a4b225cb87ee.png)
 별명은 변경이 가능하며, 프로필 사진은 upload버튼이나 drag&drop을 이용하여 사진을 업로드 할 수 있습니다.   
 
-*_drag&drop_   
+* _drag&drop_   
 ```java script
 //이미지 파일 drop 시 해당 url로 이동하지 않도록 설정
 window.ondragover = function(e) { e.preventDefault(); return false };
